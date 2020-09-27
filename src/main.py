@@ -14,7 +14,8 @@ x_help = "Please set directory which contains xbrl files."
 
 @click.command()
 @click.option("-x", "--xbrl_dir", "xbrl_dir", required=True, help=x_help)
-def main(xbrl_dir):
+@click.option("-w", "--word_class", "word_class", default="noun")
+def main(xbrl_dir,word_class):
     # file paths
     base_path = os.getcwd()
     os.makedirs(os.getcwd() + "/parsed", exist_ok=True)
@@ -33,7 +34,7 @@ def main(xbrl_dir):
     # Word Cloud
     wordcloud = WordClouder(parser.target_tsv, wordclouded_dir)
     logger.info(wordcloud)
-    wordcloud.run()
+    wordcloud.run(word_class)
 
 
 if __name__ == "__main__":
